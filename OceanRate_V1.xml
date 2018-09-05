@@ -4,12 +4,12 @@
   <customNamespace>com.oocl.newdomain</customNamespace>
   <prerequisiteObjectModelPath>D:/iris_glb/iris4_glb/Data/OneModel/FRM/FRM_Model.xml</prerequisiteObjectModelPath>
   <prerequisiteObjectModelPath>D:/gitvob/iris4_glb/Data/OneModel/TNM/Tariff_Common_Model.xml</prerequisiteObjectModelPath>
-  <persistentRootType typeName="RgmBrOGeoMasAsn" typeId="10000">
+  <persistentRootType typeName="BrOGeoMasAssn" typeId="10000">
     <attribute xsi:type="FrmPersistentRootTypeAttributeDescriptor" name="baseRateId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmBaseRate</typeName>
+        <typeName>BaseRate</typeName>
       </typeReference>
       <relationship>
         <manyToOneRelationship />
@@ -50,7 +50,7 @@
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <persistentRootType typeName="RgmBaseRate" typeId="10006">
+  <persistentRootType typeName="BaseRate" typeId="10006">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="baseRateId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -61,28 +61,36 @@
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmVolumeGroup</typeName>
+        <typeName>VolumeGroup</typeName>
       </typeReference>
     </attribute>
     <attribute xsi:type="FrmComponentTypeAttributeDescriptor" name="wtGrpId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmWeightGroup</typeName>
+        <typeName>WeightGroup</typeName>
       </typeReference>
     </attribute>
     <attribute xsi:type="FrmComponentTypeAttributeDescriptor" name="formulaGrpNum">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmFormulaGroup</typeName>
+        <typeName>FormulaGroup</typeName>
       </typeReference>
     </attribute>
     <attribute xsi:type="FrmComponentTypeAttributeDescriptor" name="czbleSurchargeGrpId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmCzbleSurchGrp</typeName>
+        <typeName>CzbleSurchGrp</typeName>
+      </typeReference>
+    </attribute>
+    <attribute xsi:type="FrmValueTypeAttributeDescriptor" name="brEffStart">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <typeReference>
+        <domainName>FRM</domainName>
+        <typeName>PFWAbsoluteDateTime</typeName>
       </typeReference>
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="allowAddonAtOrigin">
@@ -100,14 +108,6 @@
       <isIndexed>false</isIndexed>
       <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
     </attribute>
-    <attribute xsi:type="FrmValueTypeAttributeDescriptor" name="brEffStart">
-      <mandatory>false</mandatory>
-      <isIndexed>false</isIndexed>
-      <typeReference>
-        <domainName>FRM</domainName>
-        <typeName>PFWAbsoluteDateTime</typeName>
-      </typeReference>
-    </attribute>
     <attribute xsi:type="FrmValueTypeAttributeDescriptor" name="brEffEnd">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -120,6 +120,7 @@
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+      <useSequenceGenerator />
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="isLrgBco">
       <mandatory>false</mandatory>
@@ -196,7 +197,7 @@
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmSchrgOvrdGrp</typeName>
+        <typeName>SchrgOvrdGrp</typeName>
       </typeReference>
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="csLocalNvoInd">
@@ -210,7 +211,7 @@
       <collectionBaseType xsi:type="FrmListType" typeName="FrmList">
         <elementType>
           <typeReference>
-            <typeName>RgmRateTable</typeName>
+            <typeName>RateTable</typeName>
           </typeReference>
         </elementType>
         <isNormalized>false</isNormalized>
@@ -227,13 +228,134 @@
         <manyToOneRelationship />
       </relationship>
     </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="baseRAuthLevel">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="15">
+        <isEmail>false</isEmail>
+      </primitiveBaseType>
+      <useSequenceGenerator />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brRate20">
+      <abbreviation>BR_RATE20</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brRate40">
+      <abbreviation>BR_RATE40</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brRate40H">
+      <abbreviation>BR_RATE40H</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brRate45">
+      <abbreviation>BR_RATE45</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brMode">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="4">
+        <isEmail>false</isEmail>
+      </primitiveBaseType>
+      <useSequenceGenerator />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brSocStatus">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="1">
+        <isEmail>false</isEmail>
+      </primitiveBaseType>
+      <useSequenceGenerator />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="cmdtyGrpId">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmLongType" typeName="FrmLong" />
+      <useSequenceGenerator />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brCcp">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="25">
+        <isEmail>false</isEmail>
+      </primitiveBaseType>
+      <useSequenceGenerator />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="picVersionNum">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="isAnyNewIncluded">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brL4Rate20">
+      <abbreviation>BR_L4_RATE20</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brL4Rate40">
+      <abbreviation>BR_L4_RATE40</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brL4Rate40H">
+      <abbreviation>BR_L4_RATE40H</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="brL4Rate45">
+      <abbreviation>BR_L4_RATE45</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="paymentTerm">
+      <abbreviation>PAYMENT_TERM</abbreviation>
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="10">
+        <isEmail>false</isEmail>
+      </primitiveBaseType>
+      <useSequenceGenerator />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="isInilNvo">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="linkedRateId">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmLongType" typeName="FrmLong" />
+      <useSequenceGenerator />
+    </attribute>
+    <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="publishedRateId">
+      <mandatory>false</mandatory>
+      <isIndexed>false</isIndexed>
+      <primitiveBaseType xsi:type="FrmLongType" typeName="FrmLong" />
+    </attribute>
     <primaryKey>
       <attribute>
         <attributeName>baseRateId</attributeName>
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <persistentRootType typeName="RgmPublishedRate" typeId="10111">
+  <persistentRootType typeName="PublishedRate" typeId="10111">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="publishedRateId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -246,7 +368,6 @@
       <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="45">
         <isEmail>false</isEmail>
       </primitiveBaseType>
-     
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="basis">
       <mandatory>false</mandatory>
@@ -254,7 +375,6 @@
       <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="7">
         <isEmail>false</isEmail>
       </primitiveBaseType>
-      
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="bound">
       <mandatory>false</mandatory>
@@ -262,7 +382,6 @@
       <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="6">
         <isEmail>false</isEmail>
       </primitiveBaseType>
-    
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="filingPurpose">
       <mandatory>false</mandatory>
@@ -270,13 +389,11 @@
       <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="10">
         <isEmail>false</isEmail>
       </primitiveBaseType>
-      
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="picVersionNum">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
-     
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="publishedBy">
       <mandatory>false</mandatory>
@@ -301,7 +418,6 @@
       <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="20">
         <isEmail>false</isEmail>
       </primitiveBaseType>
-     
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="tliNum">
       <mandatory>false</mandatory>
@@ -309,7 +425,6 @@
       <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="20">
         <isEmail>false</isEmail>
       </primitiveBaseType>
-   
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="trade">
       <mandatory>false</mandatory>
@@ -317,7 +432,6 @@
       <primitiveBaseType xsi:type="FrmStringType" typeName="FrmString" maxLength="3">
         <isEmail>false</isEmail>
       </primitiveBaseType>
-  
     </attribute>
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="tvrNum">
       <mandatory>false</mandatory>
@@ -332,7 +446,7 @@
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <persistentRootType typeName="RgmRateTable" typeId="10124">
+  <persistentRootType typeName="RateTable" typeId="10124">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="rateName">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -435,7 +549,6 @@
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <primitiveBaseType xsi:type="FrmIntegerType" typeName="FrmInteger" />
-    
     </attribute>
     <primaryKey>
       <attribute>
@@ -443,7 +556,7 @@
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <persistentRootType typeName="RgmCityGroup" typeId="20000">
+  <persistentRootType typeName="CityGroup" typeId="20000">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="cityGrpId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -475,12 +588,12 @@
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <persistentRootType typeName="RgmBrOCityGrpAsn" typeId="20001">
+  <persistentRootType typeName="BrOCityGrpAssn" typeId="20001">
     <attribute xsi:type="FrmPersistentRootTypeAttributeDescriptor" name="baseRateId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmBaseRate</typeName>
+        <typeName>BaseRate</typeName>
       </typeReference>
       <relationship>
         <oneToOneRelationship />
@@ -490,7 +603,7 @@
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmCityGroup</typeName>
+        <typeName>CityGroup</typeName>
       </typeReference>
       <relationship>
         <manyToOneRelationship />
@@ -521,12 +634,12 @@
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <persistentRootType typeName="RgmBrDGeoMAsn" typeId="20002">
+  <persistentRootType typeName="BrDGeoMAssn" typeId="20002">
     <attribute xsi:type="FrmPersistentRootTypeAttributeDescriptor" name="baseRateId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmBaseRate</typeName>
+        <typeName>BaseRate</typeName>
       </typeReference>
       <relationship>
         <manyToOneRelationship />
@@ -567,12 +680,12 @@
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <persistentRootType typeName="RgmBrDCityGrpAsn" typeId="20012">
+  <persistentRootType typeName="BrDCityGrpAssn" typeId="20012">
     <attribute xsi:type="FrmPersistentRootTypeAttributeDescriptor" name="baseRateId">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmBaseRate</typeName>
+        <typeName>BaseRate</typeName>
       </typeReference>
       <relationship>
         <oneToOneRelationship />
@@ -582,7 +695,7 @@
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
       <typeReference>
-        <typeName>RgmCityGroup</typeName>
+        <typeName>CityGroup</typeName>
       </typeReference>
       <relationship>
         <manyToOneRelationship />
@@ -613,7 +726,7 @@
       </attribute>
     </primaryKey>
   </persistentRootType>
-  <componentType typeName="RgmVolumeGroup" typeId="10001">
+  <componentType typeName="VolumeGroup" typeId="10001">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="volumeGrpName">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -644,7 +757,7 @@
       <abbreviation>VOLUME_GRP_ID</abbreviation>
     </customPrimaryKey>
   </componentType>
-  <componentType typeName="RgmWeightGroup" typeId="10002">
+  <componentType typeName="WeightGroup" typeId="10002">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="wtGrpNme">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -686,13 +799,13 @@
       <abbreviation>WT_GRP_ID</abbreviation>
     </customPrimaryKey>
   </componentType>
-  <componentType typeName="RgmFormulaGroup" typeId="10003">
+  <componentType typeName="FormulaGroup" typeId="10003">
     <customPrimaryKey>
       <attributeName>frmUuid</attributeName>
       <abbreviation>FORMULA_GRP_NUM</abbreviation>
     </customPrimaryKey>
   </componentType>
-  <componentType typeName="RgmCzbleSurchGrp" typeId="10005">
+  <componentType typeName="CzbleSurchGrp" typeId="10005">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="czbleSurchGrpNme">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
@@ -705,7 +818,7 @@
       <abbreviation>CZBLE_SURCHARGE_GRP_ID</abbreviation>
     </customPrimaryKey>
   </componentType>
-  <componentType typeName="RgmSchrgOvrdGrp" typeId="10012">
+  <componentType typeName="SchrgOvrdGrp" typeId="10012">
     <attribute xsi:type="FrmPrimitiveTypeAttributeDescriptor" name="schrgOvrdGrpNme">
       <mandatory>false</mandatory>
       <isIndexed>false</isIndexed>
